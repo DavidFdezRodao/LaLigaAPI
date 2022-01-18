@@ -7,7 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaLigaAPI", "LaLigaAPI\LaLi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4544CD04-E036-46CD-B32B-DD8769272319}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\Downloads\LaLiga.postman_collection.json = ..\..\..\Downloads\LaLiga.postman_collection.json
 		README.txt = README.txt
 		Scripts.txt = Scripts.txt
 	EndProjectSection
