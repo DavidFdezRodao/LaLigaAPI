@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LaLigaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CLUBES">
+          <Key>
+            <PropertyRef Name="ID_CLUB" />
+          </Key>
+          <Property Name="ID_CLUB" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PRESUPUESTO" Type="int" Nullable="false" />
+          <Property Name="ESCUDO" Type="nvarchar" MaxLength="90" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ENTRENADORES">
+          <Key>
+            <PropertyRef Name="ID_ENTRENADOR" />
+          </Key>
+          <Property Name="ID_ENTRENADOR" Type="int" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_NACIMIENTO" Type="date" Nullable="false" />
+          <Property Name="SALARIO" Type="int" Nullable="false" />
+          <Property Name="CLUB" Type="int" />
+        </EntityType>
+        <EntityType Name="JUGADORES">
+          <Key>
+            <PropertyRef Name="ID_JUGADOR" />
+          </Key>
+          <Property Name="ID_JUGADOR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_NACIMIENTO" Type="date" Nullable="false" />
+          <Property Name="POSICION" Type="int" />
+          <Property Name="SALARIO" Type="int" />
+          <Property Name="CLUB" Type="int" />
+          <Property Name="CANTERANO" Type="bit" />
+        </EntityType>
+        <EntityType Name="POSICIONES">
+          <Key>
+            <PropertyRef Name="ID_POSICION" />
+          </Key>
+          <Property Name="ID_POSICION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="POSICION" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ENTRENADORES_CLUBES">
+          <End Role="CLUBES" Type="Self.CLUBES" Multiplicity="0..1" />
+          <End Role="ENTRENADORES" Type="Self.ENTRENADORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLUBES">
+              <PropertyRef Name="ID_CLUB" />
+            </Principal>
+            <Dependent Role="ENTRENADORES">
+              <PropertyRef Name="CLUB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JUGADORES_CLUBES">
+          <End Role="CLUBES" Type="Self.CLUBES" Multiplicity="0..1" />
+          <End Role="JUGADORES" Type="Self.JUGADORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLUBES">
+              <PropertyRef Name="ID_CLUB" />
+            </Principal>
+            <Dependent Role="JUGADORES">
+              <PropertyRef Name="CLUB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JUGADORES_POSICIONES">
+          <End Role="POSICIONES" Type="Self.POSICIONES" Multiplicity="0..1" />
+          <End Role="JUGADORES" Type="Self.JUGADORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POSICIONES">
+              <PropertyRef Name="ID_POSICION" />
+            </Principal>
+            <Dependent Role="JUGADORES">
+              <PropertyRef Name="POSICION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LaLigaModelStoreContainer">
+          <EntitySet Name="CLUBES" EntityType="Self.CLUBES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ENTRENADORES" EntityType="Self.ENTRENADORES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JUGADORES" EntityType="Self.JUGADORES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="POSICIONES" EntityType="Self.POSICIONES" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ENTRENADORES_CLUBES" Association="Self.FK_ENTRENADORES_CLUBES">
+            <End Role="CLUBES" EntitySet="CLUBES" />
+            <End Role="ENTRENADORES" EntitySet="ENTRENADORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JUGADORES_CLUBES" Association="Self.FK_JUGADORES_CLUBES">
+            <End Role="CLUBES" EntitySet="CLUBES" />
+            <End Role="JUGADORES" EntitySet="JUGADORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JUGADORES_POSICIONES" Association="Self.FK_JUGADORES_POSICIONES">
+            <End Role="POSICIONES" EntitySet="POSICIONES" />
+            <End Role="JUGADORES" EntitySet="JUGADORES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LaLigaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CLUBES">
+          <Key>
+            <PropertyRef Name="ID_CLUB" />
+          </Key>
+          <Property Name="ID_CLUB" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRESUPUESTO" Type="Int32" Nullable="false" />
+          <Property Name="ESCUDO" Type="String" MaxLength="90" FixedLength="false" Unicode="true" Nullable="false" />
+          </EntityType>
+        <EntityType Name="ENTRENADORES">
+          <Key>
+            <PropertyRef Name="ID_ENTRENADOR" />
+          </Key>
+          <Property Name="ID_ENTRENADOR" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="F_NACIMIENTO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SALARIO" Type="Int32" Nullable="false" />
+          <Property Name="CLUB" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_ENTRENADORES_CLUBES">
+          <End Role="CLUBES" Type="Self.CLUBES" Multiplicity="0..1" />
+          <End Role="ENTRENADORES" Type="Self.ENTRENADORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLUBES">
+              <PropertyRef Name="ID_CLUB" />
+            </Principal>
+            <Dependent Role="ENTRENADORES">
+              <PropertyRef Name="CLUB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LaLigaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CLUBES" EntityType="Self.CLUBES" />
+          <EntitySet Name="ENTRENADORES" EntityType="Self.ENTRENADORES" />
+          <AssociationSet Name="FK_ENTRENADORES_CLUBES" Association="Self.FK_ENTRENADORES_CLUBES">
+            <End Role="CLUBES" EntitySet="CLUBES" />
+            <End Role="ENTRENADORES" EntitySet="ENTRENADORES" />
+          </AssociationSet>
+          <EntitySet Name="POSICIONES" EntityType="LaLigaModel.POSICIONES" />
+          <EntitySet Name="JUGADORES" EntityType="LaLigaModel.JUGADORES" />
+          <AssociationSet Name="FK_JUGADORES_CLUBES" Association="LaLigaModel.FK_JUGADORES_CLUBES">
+            <End Role="CLUBES" EntitySet="CLUBES" />
+            <End Role="JUGADORES" EntitySet="JUGADORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JUGADORES_POSICIONES" Association="LaLigaModel.FK_JUGADORES_POSICIONES">
+            <End Role="POSICIONES" EntitySet="POSICIONES" />
+            <End Role="JUGADORES" EntitySet="JUGADORES" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="POSICIONES">
+          <Key>
+            <PropertyRef Name="ID_POSICION" />
+          </Key>
+          <Property Name="ID_POSICION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="POSICION" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="JUGADORES">
+          <Key>
+            <PropertyRef Name="ID_JUGADOR" />
+          </Key>
+          <Property Name="ID_JUGADOR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_NACIMIENTO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="POSICION" Type="Int32" />
+          <Property Name="SALARIO" Type="Int32" />
+          <Property Name="CLUB" Type="Int32" />
+          <Property Name="CANTERANO" Type="Boolean" />
+          </EntityType>
+        <Association Name="FK_JUGADORES_CLUBES">
+          <End Type="LaLigaModel.CLUBES" Role="CLUBES" Multiplicity="0..1" />
+          <End Type="LaLigaModel.JUGADORES" Role="JUGADORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLUBES">
+              <PropertyRef Name="ID_CLUB" />
+            </Principal>
+            <Dependent Role="JUGADORES">
+              <PropertyRef Name="CLUB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JUGADORES_POSICIONES">
+          <End Type="LaLigaModel.POSICIONES" Role="POSICIONES" Multiplicity="0..1" />
+          <End Type="LaLigaModel.JUGADORES" Role="JUGADORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="POSICIONES">
+              <PropertyRef Name="ID_POSICION" />
+            </Principal>
+            <Dependent Role="JUGADORES">
+              <PropertyRef Name="POSICION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LaLigaModelStoreContainer" CdmEntityContainer="LaLigaEntities">
+          <EntitySetMapping Name="CLUBES">
+            <EntityTypeMapping TypeName="LaLigaModel.CLUBES">
+              <MappingFragment StoreEntitySet="CLUBES">
+                <ScalarProperty Name="ID_CLUB" ColumnName="ID_CLUB" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="PRESUPUESTO" ColumnName="PRESUPUESTO" />
+                <ScalarProperty Name="ESCUDO" ColumnName="ESCUDO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ENTRENADORES">
+            <EntityTypeMapping TypeName="LaLigaModel.ENTRENADORES">
+              <MappingFragment StoreEntitySet="ENTRENADORES">
+                <ScalarProperty Name="ID_ENTRENADOR" ColumnName="ID_ENTRENADOR" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="F_NACIMIENTO" ColumnName="F_NACIMIENTO" />
+                <ScalarProperty Name="SALARIO" ColumnName="SALARIO" />
+                <ScalarProperty Name="CLUB" ColumnName="CLUB" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POSICIONES">
+            <EntityTypeMapping TypeName="LaLigaModel.POSICIONES">
+              <MappingFragment StoreEntitySet="POSICIONES">
+                <ScalarProperty Name="POSICION" ColumnName="POSICION" />
+                <ScalarProperty Name="ID_POSICION" ColumnName="ID_POSICION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JUGADORES">
+            <EntityTypeMapping TypeName="LaLigaModel.JUGADORES">
+              <MappingFragment StoreEntitySet="JUGADORES">
+                <ScalarProperty Name="CANTERANO" ColumnName="CANTERANO" />
+                <ScalarProperty Name="CLUB" ColumnName="CLUB" />
+                <ScalarProperty Name="SALARIO" ColumnName="SALARIO" />
+                <ScalarProperty Name="POSICION" ColumnName="POSICION" />
+                <ScalarProperty Name="F_NACIMIENTO" ColumnName="F_NACIMIENTO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_JUGADOR" ColumnName="ID_JUGADOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
